@@ -1,19 +1,7 @@
 import { Currency } from "./currency";
 
-export const Currencies = [
-    {
-        name: "Brazilian Real",
-        code: "BRL",
-        countryFlag: "BRA"
-    },
-    {
-        name: "United States Dollar",
-        code: "USD",
-        countryFlag: "USA"
-    },
-    {
-        name: "Canadian Dollar",
-        code: "CAD",
-        countryFlag: "CAD"
-    }
-].map((c) => new Currency(c.name, c.code, c.countryFlag));
+export const Currencies = {
+  BRL: new Currency("Brazilian Real", "BRL", "BRA"),
+  USD: new Currency("United States Dollar", "USD", "USA"),
+  CAD: new Currency("Canadian Dollar", "CAD", "CAD"),
+};

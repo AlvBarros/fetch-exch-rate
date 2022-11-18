@@ -7,7 +7,7 @@ export class CurrenciesController {
   constructor() {}
 
   @Get()
-  async getHealthcheck(): Promise<Currency[]> {
+  async getCurrencies(): Promise<Currency[]> {
     return Currencies;
   }
 }
