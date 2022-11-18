@@ -38,7 +38,9 @@ export class ExchangeRatesService {
   }
 
   private calculateDecimals(amount: number, rate): { decimals; overflow } {
-    // return overflow
-    return null;
+    const multiplied = amount * rate;
+    const decimals = multiplied % 100;
+    const overflow = (multiplied - decimals) / 100;
+    return { decimals, overflow };
   }
 }
