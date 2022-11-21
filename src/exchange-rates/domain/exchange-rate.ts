@@ -1,7 +1,7 @@
 import { Currency } from "./currency";
 
 export class ExchangeRate {
-  from: Currency;
-  to: Currency;
+  from: string;
+  to: string;
   rate: number;
 }

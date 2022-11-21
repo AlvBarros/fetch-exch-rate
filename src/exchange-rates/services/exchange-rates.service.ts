@@ -12,13 +12,13 @@ const ratesCache = new CacheContainer(new MemoryStorage());
 export class ExchangeRatesService {
   constructor() {}
 
-  async getExchangeRate(from: Currency, to: Currency): Promise<ExchangeRate> {
+  async getExchangeRate(from: string, to: string): Promise<ExchangeRate> {
     const currencies = [from, to];
     // const externalProvider = this.currencyApi.getCurrencyApi();
     return Promise.resolve(null);
   }
 
-  async getExchangeRates(currencies: Currency[]): Promise<ExchangeRate[]> {
+  async getExchangeRates(currencies: string[]): Promise<ExchangeRate[]> {
     let promises = [];
     for (let toIndex = 0; toIndex < currencies.length; toIndex++) {
       for (let fromIndex = 0; fromIndex < currencies.length; fromIndex++) {
@@ -34,7 +34,7 @@ export class ExchangeRatesService {
 
   async exchange(
     amount: CurrencyAmount,
-    to: Currency
+    to: string
   ): Promise<CurrencyAmount> {
     const rate = await this.getExchangeRate(amount.currency, to);
     return this.calculate(amount, rate);
