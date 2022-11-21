@@ -1,4 +1,4 @@
-import { ExchangeRate } from "src/domain/exchange-rate";
+import { ExchangeRate } from "./exchange-rate";
 
 export class CachedExchangeRate extends ExchangeRate {
     storedAt: Date;

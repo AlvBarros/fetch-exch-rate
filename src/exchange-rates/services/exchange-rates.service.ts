@@ -1,10 +1,10 @@
 import { Injectable } from "@nestjs/common";
 import { CacheContainer } from "node-ts-cache";
 import { MemoryStorage } from "node-ts-cache-storage-memory";
-import { Currency } from "src/domain/currency";
-import { CurrencyAmount } from "src/domain/currency-amount";
-import { ExchangeRate } from "src/domain/exchange-rate";
-import { CachedExchangeRate } from "./cached-exchange-rate";
+import { Currency } from "../domain/currency";
+import { CurrencyAmount } from "../domain/currency-amount";
+import { ExchangeRate } from "../domain/exchange-rate";
+import { CachedExchangeRate } from "../domain/cached-exchange-rate";
 
 const ratesCache = new CacheContainer(new MemoryStorage());
 
@@ -14,7 +14,7 @@ export class ExchangeRatesService {
 
   async getExchangeRate(from: Currency, to: Currency): Promise<ExchangeRate> {
     const currencies = [from, to];
-    // fetch each
+    // const externalProvider = this.currencyApi.getCurrencyApi();
     return Promise.resolve(null);
   }
 

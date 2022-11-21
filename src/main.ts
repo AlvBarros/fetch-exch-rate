@@ -3,6 +3,8 @@ import { AppModule } from './app.module';
 
 declare const module: any;
 
+require('dotenv').config();
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   await app.listen(3000);

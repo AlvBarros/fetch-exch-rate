@@ -1,6 +1,6 @@
-import { Controller, Get, HttpStatus } from "@nestjs/common";
+import { Controller, Get } from "@nestjs/common";
 import { HealthcheckService } from "./healthcheck/healthcheck.service";
-import { Diagnostics, HealthStatus } from "./healthcheck/interfaces/diagnostics";
+import { Diagnostics } from "./healthcheck/interfaces/diagnostics";
 
 @Controller()
 export class AppController {

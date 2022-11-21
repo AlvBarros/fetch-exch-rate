@@ -1,11 +1,17 @@
 import { Controller, Get, Param } from "@nestjs/common";
-import { Currencies } from "src/domain/currencies";
-import { ExchangeRate } from "src/domain/exchange-rate";
-import { ExchangeRatesService } from "./exchange-rates.service";
+import { Currencies } from "src/exchange-rates/domain/currencies";
+import { Currency } from "./domain/currency";
+import { ExchangeRate } from "./domain/exchange-rate";
+import { ExchangeRatesService } from "./services/exchange-rates.service";
 
 @Controller("exchange-rates")
 export class ExchangeRatesController {
   constructor(private readonly exchangeRatesService: ExchangeRatesService) {}
+
+  @Get("/currencies")
+  async getCurrencies(): Promise<Currency[]> {
+    return [Currencies.BRL, Currencies.CAD, Currencies.USD];
+  }
 
   @Get("/:from/to/:to")
   async getExchangeRate(
