@@ -1,21 +1,21 @@
 import { Injectable } from "@nestjs/common";
-import { CacheContainer } from "node-ts-cache";
-import { MemoryStorage } from "node-ts-cache-storage-memory";
-import { Currency } from "../domain/currency";
+import { ExternalProviderService } from "src/external-provider/external-provider.service";
 import { CurrencyAmount } from "../domain/currency-amount";
 import { ExchangeRate } from "../domain/exchange-rate";
-import { CachedExchangeRate } from "../domain/cached-exchange-rate";
-
-const ratesCache = new CacheContainer(new MemoryStorage());
+import { CacheService } from "./cache.service";
 
 @Injectable()
 export class ExchangeRatesService {
-  constructor() {}
+  constructor(
+    private readonly cacheService: CacheService,
+    private readonly externalProviderService: ExternalProviderService
+  ) {}
 
   async getExchangeRate(from: string, to: string): Promise<ExchangeRate> {
     const currencies = [from, to];
-    // const externalProvider = this.currencyApi.getCurrencyApi();
-    return Promise.resolve(null);
+    // TODO Validate cache before calling external provider
+    const externalProvider = this.externalProviderService.getExternalProvider();
+    return externalProvider.getCurrentExchangeRate(from, to);
   }
 
   async getExchangeRates(currencies: string[]): Promise<ExchangeRate[]> {
@@ -32,10 +32,7 @@ export class ExchangeRatesService {
     return Promise.all(promises);
   }
 
-  async exchange(
-    amount: CurrencyAmount,
-    to: string
-  ): Promise<CurrencyAmount> {
+  async exchange(amount: CurrencyAmount, to: string): Promise<CurrencyAmount> {
     const rate = await this.getExchangeRate(amount.currency, to);
     return this.calculate(amount, rate);
   }

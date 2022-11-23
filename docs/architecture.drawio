@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="IQDn_cvOjYCg1MadhM2p" name="Page-1">
-        <mxGraphModel dx="677" dy="785" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="826" dy="635" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -25,20 +25,23 @@
                 <mxCell id="4" value="Exchange Rates&lt;br&gt;Module" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="190" y="210" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="28" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" parent="1" source="21" target="26" edge="1">
+                <mxCell id="35" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="21" target="26">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="36" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="21" target="33">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="21" value="" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="330" y="430" width="200" height="130" as="geometry"/>
                 </mxCell>
-                <mxCell id="22" value="External Exch API&lt;br&gt;Module" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="22" value="External Provider&lt;br&gt;Module" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="370" y="400" width="120" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="26" value="" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="590" y="430" width="200" height="130" as="geometry"/>
+                    <mxGeometry x="590" y="350" width="200" height="130" as="geometry"/>
                 </mxCell>
                 <mxCell id="27" value="Currency API&lt;br&gt;Module" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="630" y="400" width="120" height="60" as="geometry"/>
+                    <mxGeometry x="630" y="320" width="120" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="29" value="Exchange Rates&lt;br&gt;Controller &amp;amp; Service" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
                     <mxGeometry x="160" y="280" width="80" height="80" as="geometry"/>
@@ -51,6 +54,15 @@
                 </mxCell>
                 <mxCell id="32" value="* TODO: Cache and DB should be a data store module" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#FF0000;" parent="1" vertex="1">
                     <mxGeometry x="360" y="255" width="310" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="33" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="600" y="550" width="200" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="34" value="Google Scraper&lt;br&gt;Module" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="640" y="520" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="38" value="IExternalProvider" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="370" y="480" width="120" height="60" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
