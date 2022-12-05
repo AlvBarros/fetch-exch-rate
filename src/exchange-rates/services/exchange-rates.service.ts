@@ -1,59 +1,55 @@
-import { Injectable } from "@nestjs/common";
+import { CACHE_MANAGER, Inject, Injectable } from "@nestjs/common";
 import { ExternalProviderService } from "src/external-provider/external-provider.service";
-import { CurrencyAmount } from "../domain/currency-amount";
 import { ExchangeRate } from "../domain/exchange-rate";
-import { CacheService } from "./cache.service";
+import { Cache } from "cache-manager";
+import { CachedEntity } from "../domain/cached-entity";
 
 @Injectable()
 export class ExchangeRatesService {
   constructor(
-    private readonly cacheService: CacheService,
+    @Inject(CACHE_MANAGER)
+    private cacheManager: Cache,
     private readonly externalProviderService: ExternalProviderService
   ) {}
 
-  async getExchangeRate(from: string, to: string): Promise<ExchangeRate> {
-    const currencies = [from, to];
-    // TODO Validate cache before calling external provider
-    const externalProvider = this.externalProviderService.getExternalProvider();
-    console.log(externalProvider);
-    return externalProvider.getCurrentExchangeRate(from, to);
-  }
-
-  async getExchangeRates(currencies: string[]): Promise<ExchangeRate[]> {
-    let promises = [];
-    for (let toIndex = 0; toIndex < currencies.length; toIndex++) {
-      for (let fromIndex = 0; fromIndex < currencies.length; fromIndex++) {
-        if (fromIndex !== toIndex) {
-          promises.push(
-            this.getExchangeRate(currencies[fromIndex], currencies[toIndex])
-          );
-        }
-      }
+  async getExchangeRate(
+    from: string,
+    to: string
+  ): Promise<CachedEntity<ExchangeRate>> {
+    const key = `${from}-${to}`;
+    const cached = await this.getEntityFromCache(key);
+    if (!cached || cached.isExpired()) {
+      const externalProvider =
+        this.externalProviderService.getExternalProvider();
+      const exchangeRate = await externalProvider.getCurrentExchangeRate(
+        from,
+        to
+      );
+      const cachedRate = new CachedEntity<ExchangeRate>(
+        new Date(),
+        new ExchangeRate(from, to, exchangeRate.rate)
+      );
+      this.cacheManager.set(key, cachedRate).then(() => {
+        console.log(`Updating cached ${key}`);
+      });
+      return cachedRate;
     }
-    return Promise.all(promises);
+    const cachedRate = new CachedEntity(cached.storedAt, cached.entity);
+    return cachedRate;
   }
 
-  async exchange(amount: CurrencyAmount, to: string): Promise<CurrencyAmount> {
-    const rate = await this.getExchangeRate(amount.currency, to);
-    return this.calculate(amount, rate);
-  }
-
-  private calculate(
-    amount: CurrencyAmount,
-    rate: ExchangeRate
-  ): CurrencyAmount {
-    const { decimals, overflow } = this.calculateDecimals(
-      amount.decimals,
-      rate
-    );
-    const integers = amount.integers * rate.rate + overflow;
-    return new CurrencyAmount(rate.to, integers, decimals);
-  }
-
-  private calculateDecimals(amount: number, rate): { decimals; overflow } {
-    const multiplied = amount * rate;
-    const decimals = multiplied % 100;
-    const overflow = (multiplied - decimals) / 100;
-    return { decimals, overflow };
+  private async getEntityFromCache(
+    key: string
+  ): Promise<CachedEntity<ExchangeRate>> {
+    const cached = await this.cacheManager.get(key);
+    if (cached) {
+      const entity = cached.entity;
+      return new CachedEntity(
+        cached.storedAt,
+        new ExchangeRate(entity.from, entity.to, entity.rate)
+      );
+    } else {
+      return undefined;
+    }
   }
 }

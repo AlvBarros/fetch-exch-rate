@@ -1,12 +1,11 @@
 import { CachedEntity } from "./cached-entity";
 
-export class ExchangeRate extends CachedEntity {
+export class ExchangeRate {
   constructor(
     from: string,
     to: string,
     rate: number
   ) {
-    super();
     this.from = from;
     this.to = to;
     this.rate = rate;

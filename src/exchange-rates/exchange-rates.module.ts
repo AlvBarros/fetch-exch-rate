@@ -1,12 +1,13 @@
-import { Module } from '@nestjs/common';
+import { CacheModule, Module } from '@nestjs/common';
 import { ExternalProviderModule } from 'src/external-provider/external-provider.module';
 import { ExchangeRatesController } from './exchange-rates.controller';
 import { ExchangeRatesService } from './services/exchange-rates.service';
-import { CacheService } from './services/cache.service';
 
 @Module({
-    imports: [ExternalProviderModule],
+    imports: [ExternalProviderModule, CacheModule.register({
+      store: 'memory'
+    })],
     controllers: [ExchangeRatesController],
-    providers: [ExchangeRatesService, CacheService],
+    providers: [ExchangeRatesService],
   })
 export class ExchangeRatesModule {}
