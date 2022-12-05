@@ -3,6 +3,7 @@ import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { CurrencyApiService } from "./providers/currency-api/currency-api.service";
 import { IExternalProvider } from "./providers/external-provider";
+import { GoogleFinanceScraperService } from "./providers/google-finance-scraper/google-finance-scraper.service";
 import { GoogleScraperService } from "./providers/google-scraper/google-scraper.service";
 
 @Injectable()
@@ -21,6 +22,8 @@ export class ExternalProviderService {
         return new CurrencyApiService(this.httpService);
       case "GOOGLE-SCRAPER":
         return new GoogleScraperService(this.httpService);
+      case "GOOGLE-FINANCE-SCRAPER":
+        return new GoogleFinanceScraperService(this.httpService);
       default:
         throw new Error(`Unknown provider: ${currentProvider}`);
     }

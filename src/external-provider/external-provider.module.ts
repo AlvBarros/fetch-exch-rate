@@ -4,6 +4,7 @@ import { ExternalProviderService } from "./external-provider.service";
 import { ConfigModule } from "@nestjs/config";
 import { HttpModule } from "@nestjs/axios";
 import { GoogleScraperModule } from './providers/google-scraper/google-scraper.module';
+import { GoogleFinanceScraperModule } from './providers/google-finance-scraper/google-finance-scraper.module';
 
 @Module({
   imports: [
@@ -12,7 +13,8 @@ import { GoogleScraperModule } from './providers/google-scraper/google-scraper.m
     }),
     CurrencyApiModule,
     HttpModule,
-    GoogleScraperModule
+    GoogleScraperModule,
+    GoogleFinanceScraperModule
   ],
   providers: [ExternalProviderService],
   exports: [ExternalProviderService]

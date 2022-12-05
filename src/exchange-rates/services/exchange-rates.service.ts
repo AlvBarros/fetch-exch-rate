@@ -15,6 +15,7 @@ export class ExchangeRatesService {
     const currencies = [from, to];
     // TODO Validate cache before calling external provider
     const externalProvider = this.externalProviderService.getExternalProvider();
+    console.log(externalProvider);
     return externalProvider.getCurrentExchangeRate(from, to);
   }
 
