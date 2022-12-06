@@ -1,9 +1,10 @@
-import { Module } from "@nestjs/common";
+import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
 import { AppController } from "./app.controller";
 import { HealthcheckService } from "./healthcheck/healthcheck.service";
 import { ExchangeRatesModule } from "./exchange-rates/exchange-rates.module";
 import { ConfigModule } from "@nestjs/config";
 import { ExternalProviderModule } from "./external-provider/external-provider.module";
+import { RequestLoggerMiddleware } from "./middlewares/request-logger.middleware";
 
 @Module({
   imports: [
@@ -11,9 +12,13 @@ import { ExternalProviderModule } from "./external-provider/external-provider.mo
       isGlobal: true,
     }),
     ExchangeRatesModule,
-    ExternalProviderModule
+    ExternalProviderModule,
   ],
   controllers: [AppController],
   providers: [HealthcheckService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer): void {
+    consumer.apply(RequestLoggerMiddleware).forRoutes("*");
+  }
+}
